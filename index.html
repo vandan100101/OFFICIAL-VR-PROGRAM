@@ -799,7 +799,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
 
-      const socket = new WebSocket('ws://<raspberry_pi_ip>:8765'); // Replace with your Raspberry Pi's IP address
+      const socket = new WebSocket('ws://<raspberry_pi_ip>:192.168.0.109'); // Replace with your Raspberry Pi's IP address
 
   socket.onmessage = function(event) {
     const sensorData = JSON.parse(event.data);
