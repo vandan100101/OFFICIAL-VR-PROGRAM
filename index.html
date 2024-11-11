@@ -798,6 +798,34 @@
         // Set the size of the renderer for full-screen experience
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
+
+      const socket = new WebSocket('ws://<raspberry_pi_ip>:8765'); // Replace with your Raspberry Pi's IP address
+
+  socket.onmessage = function(event) {
+    const sensorData = JSON.parse(event.data);
+    const accel = sensorData.accel;
+    const gyro = sensorData.gyro;
+
+    // Update the camera rotation based on gyro data
+    const camera = document.querySelector('#camera');
+    camera.setAttribute('rotation', {
+      x: gyro.x,
+      y: gyro.y,
+      z: gyro.z
+    });
+  };
+
+  socket.onopen = function() {
+    console.log('Connected to WebSocket server');
+  };
+
+  socket.onerror = function(error) {
+    console.log('WebSocket Error: ' + error);
+  };
+
+  socket.onclose = function() {
+    console.log('WebSocket connection closed');
+  };
     </script>
   </body>
 </html>
