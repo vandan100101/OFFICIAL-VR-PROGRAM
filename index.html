@@ -773,7 +773,7 @@
         sceneEl.addEventListener("enter-vr", () => {
           // Ensure WASD and look controls are enabled
           cameraEl.setAttribute("wasd-controls", "enabled", true);
-          cameraEl.setAttribute("look-controls", "enabled", true);
+          cameraEl.setAttribute("look-controls", "enabled", false);
 
           // Request full-screen when entering VR
           if (sceneEl.is("vr-mode")) {
