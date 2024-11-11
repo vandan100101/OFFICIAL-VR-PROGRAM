@@ -1,158 +1,193 @@
-    <html>
-      <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>TEAM VR</title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-        <!--3d text-->
-        <!-- Environment -->
-        <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
-        <!-- Extras and Controls -->
-        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.1/dist/aframe-extras.min.js"></script>
-        <!-- for testing -->
-        <!-- <script src="aframe-super-hands-component/dist/super-hands.min.js"></script> -->
-        <!-- for deployment -->
-        <script src="https://cdn.jsdelivr.net/gh/LugawPlain/aframe-super-hands-component@master/dist/super-hands.min.js"></script>
-        <!-- Physics -->
-        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.min.js"></script>
-        <!-- Event Set -->
-        <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
-        <!-- GUI -->
-        <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe-stats-in-vr-component@master/dist/aframe-stats-in-vr-component.min.js"></script>
-        <!-- Bounding Box -->
-        <!-- Components -->
-        <script src="components/error.handler.js"></script>
-        <script src="components/my-model.js"></script>
-        <script src="components/environment_component.js"></script>
-        <script src="components/grab_connect-toggle.js"></script>
-        <script src="components/selection.js"></script>
-        <script src="components/add-button.js"></script>
-        <script src="components/logic-gate.js"></script>
-        <script src="components/logic-node.js"></script>
-        <script src="components/transmit-node.js"></script>
-        <script src="components/recieve-node.js"></script>
-        <script src="components/line-follow.js"></script>
-        <script src="components/input-logic.js"></script>
-        <script src="components/not-logic.js"></script>
-        <script src="components/or-logic.js"></script>
-        <script src="components/and-logic.js"></script>
-        <script src="components/xor-logic.js"></script>
-        <script src="components/output-logic.js"></script>
-        <script src="components/input-button.js"></script>
-        <script src="components/output-button.js"></script>
-        <script src="components/check-hover.js"></script>
-        <script src="components/check-display.js"></script>
-      </head>
-      <body>
-        <a-scene
-          stats-in-vr
-          error-handler
-          id="scene"
-          physics="driver: local; 
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>TEAM VR</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <!--3d text-->
+    <!-- Environment -->
+    <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+    <!-- Extras and Controls -->
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.1/dist/aframe-extras.min.js"></script>
+    <!-- for testing -->
+    <!-- <script src="aframe-super-hands-component/dist/super-hands.min.js"></script> -->
+    <!-- for deployment -->
+    <script src="https://cdn.jsdelivr.net/gh/LugawPlain/aframe-super-hands-component@master/dist/super-hands.min.js"></script>
+    <!-- Physics -->
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.min.js"></script>
+    <!-- Event Set -->
+    <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+    <!-- GUI -->
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe-stats-in-vr-component@master/dist/aframe-stats-in-vr-component.min.js"></script>
+    <!-- Bounding Box -->
+    <!-- Components -->
+    <script src="components/error.handler.js"></script>
+    <script src="components/my-model.js"></script>
+    <script src="components/environment_component.js"></script>
+    <script src="components/grab_connect-toggle.js"></script>
+    <script src="components/selection.js"></script>
+    <script src="components/add-button.js"></script>
+    <script src="components/logic-gate.js"></script>
+    <script src="components/logic-node.js"></script>
+    <script src="components/transmit-node.js"></script>
+    <script src="components/recieve-node.js"></script>
+    <script src="components/line-follow.js"></script>
+    <script src="components/input-logic.js"></script>
+    <script src="components/not-logic.js"></script>
+    <script src="components/or-logic.js"></script>
+    <script src="components/and-logic.js"></script>
+    <script src="components/xor-logic.js"></script>
+    <script src="components/output-logic.js"></script>
+    <script src="components/input-button.js"></script>
+    <script src="components/output-button.js"></script>
+    <script src="components/check-hover.js"></script>
+    <script src="components/check-display.js"></script>
+  </head>
+  <body>
+    <a-scene
+      stats-in-vr
+      error-handler
+      id="scene"
+      physics="driver: local; 
                       gravity: -9.8; 
                       maxSubSteps: 2;
                       fixedTimeStep: 1/60;
                       iterations: 10;"
-        >
-          <!-- Camera -->
-          <a-camera position="0 1.5 1" wasd-controls="acceleration: 20">
-            <!-- Cursor -->
-            <a-cursor
-              raycaster="far: 5; interval: 100; objects: .interactable"
-              position="0 0 -0.2"
-              scale="0.15 0.15 0.15"
-              super-hands="colliderEvent: raycaster-intersection;
+    >
+      <!-- Camera -->
+      <a-camera position="0 1.5 1" wasd-controls="acceleration: 20">
+        <!-- Cursor -->
+        <a-cursor
+          raycaster="far: 5; interval: 100; objects: .interactable"
+          position="0 0 -0.2"
+          scale="0.15 0.15 0.15"
+          super-hands="colliderEvent: raycaster-intersection;
               colliderEventProperty: els;
               colliderEndEvent:raycaster-intersection-cleared;
               colliderEndEventProperty: clearedEls;"
-              static-body="shape: sphere; sphereRadius: 0.001"
-              color="white"
-            ></a-cursor>
-          </a-camera>
-          
+          static-body="shape: sphere; sphereRadius: 0.001"
+          color="white"
+        ></a-cursor>
+      </a-camera>
 
-          <!-- assets -->
-          <a-assets>
-            <a-asset-item id="AND_GATE_PLATE" src="assets/AND_GATE_PLATE.glb">
-            </a-asset-item>
-            <a-asset-item id="NOT_GATE_PLATE" src="assets/NOT_GATE_PLATE.glb">
-            </a-asset-item>
-            <a-asset-item id="OR_GATE_PLATE" src="assets/OR_GATE_PLATE.glb">
-            </a-asset-item>
-            <a-asset-item id="XOR_GATE_PLATE" src="assets/XOR_GATE_PLATE.glb">
-            </a-asset-item>
-            <a-asset-item id="Button_case" src="assets/Button Case.glb">
-            </a-asset-item>
-            <a-asset-item id="Button" src="assets/Button.glb"> </a-asset-item>
-            <!-- Lab Desk by Colonel Cthulu [CC-BY] via Poly Pizza -->
-            <a-asset-item id="Scifi_Desk" src="assets/scifi_desk.glb">
-            </a-asset-item>
-            <!-- Scifi Pod by Quaternius -->
-            <a-asset-item id="Scifi_Pod" src="assets/Scifi Pod.glb"> </a-asset-item>
-            <a-asset-item id="RPI" src="assets/raspberry.glb"> </a-asset-item>
-            <a-asset-item id="ESP32" src="assets/esp32.glb"> </a-asset-item>
-            <a-asset-item id="Arduino" src="assets/arduino_uno.glb"> </a-asset-item>
-            <a-asset-item id="Scifi_Control" src="assets/display_terminal.glb">
-            </a-asset-item>
-            <a-asset-item id="Scifi_Table" src="assets/sci-fi_table.glb">
-            </a-asset-item>
-            <a-asset-item
-              id="ScifiCorridor"
-              src="assets/Scifi_Corridor_compressed.glb"
-            >
-            </a-asset-item>
-            <img id="UI" src="assets/UI.png" />
-            <img id="GrabbingEnabled" src="assets/Grabbing Enabled.png" />
-            <img
-              id="GrabbingEnabledRadio"
-              src="assets/Grabbing Enabled Radio.png"
-            />
-            <img id="ConnectingEnabled" src="assets/Connecting Enabled.png" />
-            <img
-              id="ConnectingEnabledRadio"
-              src="assets/Connecting Enabled Radio.png"
-            />
-            <img id="CheckDisplay" src="assets/check-display.png" />
+      <!-- assets -->
+      <a-assets>
+        <a-asset-item id="AND_GATE_PLATE" src="assets/AND_GATE_PLATE.glb">
+        </a-asset-item>
+        <a-asset-item id="NOT_GATE_PLATE" src="assets/NOT_GATE_PLATE.glb">
+        </a-asset-item>
+        <a-asset-item id="OR_GATE_PLATE" src="assets/OR_GATE_PLATE.glb">
+        </a-asset-item>
+        <a-asset-item id="XOR_GATE_PLATE" src="assets/XOR_GATE_PLATE.glb">
+        </a-asset-item>
+        <a-asset-item id="Button_case" src="assets/Button Case.glb">
+        </a-asset-item>
+        <a-asset-item id="Button" src="assets/Button.glb"> </a-asset-item>
+        <!-- Lab Desk by Colonel Cthulu [CC-BY] via Poly Pizza -->
+        <a-asset-item id="Scifi_Desk" src="assets/scifi_desk.glb">
+        </a-asset-item>
+        <!-- Scifi Pod by Quaternius -->
+        <a-asset-item id="Scifi_Pod" src="assets/Scifi Pod.glb"> </a-asset-item>
+        <a-asset-item id="RPI" src="assets/raspberry.glb"> </a-asset-item>
+        <a-asset-item id="ESP32" src="assets/esp32.glb"> </a-asset-item>
+        <a-asset-item id="Arduino" src="assets/arduino_uno.glb"> </a-asset-item>
+        <a-asset-item id="Scifi_Control" src="assets/display_terminal.glb">
+        </a-asset-item>
+        <a-asset-item id="Scifi_Table" src="assets/sci-fi_table.glb">
+        </a-asset-item>
+        <a-asset-item
+          id="ScifiCorridor"
+          src="assets/Scifi_Corridor_compressed.glb"
+        >
+        </a-asset-item>
+        <img id="UI" src="assets/UI.png" />
+        <img id="GrabbingEnabled" src="assets/Grabbing Enabled.png" />
+        <img
+          id="GrabbingEnabledRadio"
+          src="assets/Grabbing Enabled Radio.png"
+        />
+        <img id="ConnectingEnabled" src="assets/Connecting Enabled.png" />
+        <img
+          id="ConnectingEnabledRadio"
+          src="assets/Connecting Enabled Radio.png"
+        />
+        <img id="CheckDisplay" src="assets/check-display.png" />
 
-            <a-mixin
-              id="xs-cube"
-              geometry="width:0.2;height:0.2;depth:0.2"
-            ></a-mixin>
-            <a-mixin
-              id="sm-cube"
-              geometry="width:0.4;height:0.4;depth:0.4"
-            ></a-mixin>
-            <a-mixin
-              id="md-cube"
-              geometry="width:1.0;height:1.0;depth:1.0"
-            ></a-mixin>
-            <a-mixin
-              id="lg-cube"
-              geometry="width:1.2;height:1.2;depth:1.2"
-            ></a-mixin>
-            <a-mixin
-              id="xl-cube"
-              geometry="width:1.7;height:1.7;depth:1.7"
-            ></a-mixin>
-            <a-mixin
-              id="xl2-cube"
-              geometry="width:2.0;height:2.0;depth:2.0"
-            ></a-mixin>
-          </a-assets>
-          <!-- Lights -->
-          <!-- <a-entity light="type:ambient ; intensity:0.2"></a-entity> -->
-          <!-- Environment -->
-          <!--
+        <a-mixin
+          id="xs-cube"
+          geometry="width:0.2;height:0.2;depth:0.2"
+        ></a-mixin>
+        <a-mixin
+          id="sm-cube"
+          geometry="width:0.4;height:0.4;depth:0.4"
+        ></a-mixin>
+        <a-mixin
+          id="md-cube"
+          geometry="width:1.0;height:1.0;depth:1.0"
+        ></a-mixin>
+        <a-mixin
+          id="lg-cube"
+          geometry="width:1.2;height:1.2;depth:1.2"
+        ></a-mixin>
+        <a-mixin
+          id="xl-cube"
+          geometry="width:1.7;height:1.7;depth:1.7"
+        ></a-mixin>
+        <a-mixin
+          id="xl2-cube"
+          geometry="width:2.0;height:2.0;depth:2.0"
+        ></a-mixin>
+      </a-assets>
+      <!-- Lights -->
+      <!-- <a-entity light="type:ambient ; intensity:0.2"></a-entity> -->
+      <!-- Environment -->
+      <!--
           <a-entity
             environment="fog:0.8;preset:japan ;skyType:atmosphere;playarea:1.250;flatShading:true;gridColor:#6b6b6b"
             environment_component
           ></a-entity>
         -->
-        <a-entity environment="fog: 0.8; preset: starry; skyType: atmosphere; flatShading: true; gridColor: #6b6b6b" environment_component="" visible=""><a-entity class="environment" position="0 50 0" light="type: hemisphere; color: #CEE4F0; intensity: 0.08913300229539221; groundColor: #553e35" visible=""></a-entity><a-entity class="environment" position="0 -0.01 -0.46" light="intensity: 0.08913300229539221; shadowCameraLeft: -10; shadowCameraBottom: -10; shadowCameraRight: 10; shadowCameraTop: 10" visible=""></a-entity><a-entity rotation="-90 0 0" class="environmentGround environment" visible="" scale="1 1 3" shadow="cast: false; receive: false"></a-entity><a-entity class="environmentDressing environment" visible="false"></a-entity><a-sky radius="200" theta-length="110" class="environment" material="shader: skyshader; sunPosition: 0 -0.021733995409215574 -0.9997637888239164" visible="" geometry=""></a-sky><a-entity id="stars" visible=""></a-entity></a-entity>
-          <!-- <a-gltf-model
+      <a-entity
+        environment="fog: 0.8; preset: starry; skyType: atmosphere; flatShading: true; gridColor: #6b6b6b"
+        environment_component=""
+        visible=""
+        ><a-entity
+          class="environment"
+          position="0 50 0"
+          light="type: hemisphere; color: #CEE4F0; intensity: 0.08913300229539221; groundColor: #553e35"
+          visible=""
+        ></a-entity
+        ><a-entity
+          class="environment"
+          position="0 -0.01 -0.46"
+          light="intensity: 0.08913300229539221; shadowCameraLeft: -10; shadowCameraBottom: -10; shadowCameraRight: 10; shadowCameraTop: 10"
+          visible=""
+        ></a-entity
+        ><a-entity
+          rotation="-90 0 0"
+          class="environmentGround environment"
+          visible=""
+          scale="1 1 3"
+          shadow="cast: false; receive: false"
+        ></a-entity
+        ><a-entity
+          class="environmentDressing environment"
+          visible="false"
+        ></a-entity
+        ><a-sky
+          radius="200"
+          theta-length="110"
+          class="environment"
+          material="shader: skyshader; sunPosition: 0 -0.021733995409215574 -0.9997637888239164"
+          visible=""
+          geometry=""
+        ></a-sky
+        ><a-entity id="stars" visible=""></a-entity
+      ></a-entity>
+      <!-- <a-gltf-model
             src="#ScifiCorridor"
             position="0 0 -40"
             rotation="0 180 -0.2"
@@ -160,563 +195,598 @@
             shader="flat"
             lod="maxLevel: 2; distance: 15, 30"
           ></a-gltf-model> -->
-          <a-light
-            light="castShadow:false ;shadowRadius:3;shadowBias:-0.001;distance:50"
-            type="point"
-            intensity="0.6"
-            position="0 5 -2"
-          ></a-light>
-          <!-- Gui Menu -->
+      <a-light
+        light="castShadow:false ;shadowRadius:3;shadowBias:-0.001;distance:50"
+        type="point"
+        intensity="0.6"
+        position="0 5 -2"
+      ></a-light>
+      <!-- Gui Menu -->
 
-          <a-plane
-            material="emissive:#0000ff;emissiveIntensity:0.2 "
-            src="#UI"
-            position="3 .85 -.3 "
-            rotation="-50 360 0"
-            height="0.8"
-            width="1.5"
+      <a-plane
+        material="emissive:#0000ff;emissiveIntensity:0.2 "
+        src="#UI"
+        position="3 .85 -.3 "
+        rotation="-50 360 0"
+        height="0.8"
+        width="1.5"
+      >
+        <a-entity>
+          <a-circle
+            position="-0.475 0.105 0.0001"
+            radius="0.05"
+            color="#20e5f6"
+            add-button
+            selection
+            class="interactable selection"
           >
-            <a-entity>
-              <a-circle
-                position="-0.475 0.105 0.0001"
-                radius="0.05"
-                color="#20e5f6"
-                add-button
-                selection
-                class="interactable selection"
-              >
-                <a-text value="Input" opacity="0" visible="false"></a-text>
-                <a-circle
-                  position="0 0 0.001"
-                  radius="0.055"
-                  color="#8c52ff"
-                  visible="false"
-                ></a-circle>
-              </a-circle>
-              <a-circle
-                position="-0.285 0.105 0.0001"
-                radius="0.05"
-                color="#20e5f6"
-                add-button
-                selection
-                class="interactable selection"
-              >
-                <a-text value="NOT" opacity="0" visible="false"></a-text>
-                <a-circle
-                  position="0 0 0.001"
-                  radius="0.055"
-                  color="#8c52ff"
-                  visible="false"
-                ></a-circle>
-              </a-circle>
-              <a-circle
-                position="-0.095 0.105 0.0001"
-                radius="0.05"
-                color="#20e5f6"
-                add-button
-                selection
-                class="interactable selection"
-              >
-                <a-text value="OR" opacity="0" visible="false"></a-text>
-                <a-circle
-                  position="0 0 0.001"
-                  radius="0.055"
-                  color="#8c52ff"
-                  visible="false"
-                ></a-circle>
-              </a-circle>
-              <a-circle
-                position="0.095 0.105 0.0001"
-                radius="0.05"
-                color="#20e5f6"
-                add-button
-                selection
-                class="interactable selection"
-              >
-                <a-text value="AND" opacity="0" visible="false"></a-text>
-                <a-circle
-                  position="0 0 0.001"
-                  radius="0.055"
-                  color="#8c52ff"
-                  visible="false"
-                ></a-circle>
-              </a-circle>
-              <a-circle
-                position="0.285 0.105 0.0001"
-                radius="0.05"
-                color="#20e5f6"
-                add-button
-                selection
-                class="interactable selection"
-              >
-                <a-text value="XOR" opacity="0" visible="false"></a-text>
-                <a-circle
-                  position="0 0 0.001"
-                  radius="0.055"
-                  color="#8c52ff"
-                  visible="false"
-                ></a-circle>
-              </a-circle>
-              <a-circle
-                position="0.475 0.105 0.0001"
-                radius="0.05"
-                color="#20e5f6"
-                add-button
-                selection
-                class="interactable selection"
-              >
-                <a-text value="Output" opacity="0" visible="false"></a-text>
-                <a-circle
-                  position="0 0 0.001"
-                  radius="0.055"
-                  color="#8c52ff"
-                  visible="false"
-                ></a-circle>
-              </a-circle>
-            </a-entity>
+            <a-text value="Input" opacity="0" visible="false"></a-text>
             <a-circle
-              position="0 -0.2 0.001"
-              radius="0.08"
-              grab_connect-toggle
-              class="interactable"
-              visible="false"
-              hoverable
-            ></a-circle>
-            <a-circle
-              id="animation-circle"
-              visible="false"
-              radius="0.003"
-              position="0.001 -0.15 0.0003"
+              position="0 0 0.001"
+              radius="0.055"
               color="#8c52ff"
-            >
-            
-            </a-circle>
-            <a-plane
-              id="grabbingtext"
-              opacity="0.99"
-              src="#GrabbingEnabled"
-              position="0 -0.05 0.0001"
-              width="0.423"
-              height="0.046"
-              visible="true"
-            ></a-plane>
-            <a-plane
-              id="connectingtext"
-              opacity="0.99"
-              src="#ConnectingEnabled"
-              position="0 -0.05 0.01"
-              width="0.439"
-              height="0.043"
               visible="false"
-            ></a-plane>
-            <a-plane
-              id="grabbingradio"
-              opacity="0.99"
-              src="#GrabbingEnabledRadio"
-              position="0 -0.15 0.0001"
-              width="0.139"
-              height="0.133"
-              visible="true"
-            >
-            </a-plane>
-            <a-plane
-              id="connectingradio"
-              opacity="0.99"
-              src="#ConnectingEnabledRadio"
-              position="0.003 -0.15 0.0001"
-              width="0.149"
-              height="0.142"
+            ></a-circle>
+          </a-circle>
+          <a-circle
+            position="-0.285 0.105 0.0001"
+            radius="0.05"
+            color="#20e5f6"
+            add-button
+            selection
+            class="interactable selection"
+          >
+            <a-text value="NOT" opacity="0" visible="false"></a-text>
+            <a-circle
+              position="0 0 0.001"
+              radius="0.055"
+              color="#8c52ff"
               visible="false"
-            >
-            </a-plane>
-          </a-plane>
-
-          <a-gltf-model
-            src="#Scifi_Control"
-            my-model
-            scale="0.7 0.5 0.5 "
-            position="3 0.5 -0.5"
-            rotation="0 360 0"
-          ></a-gltf-model>
-          <!-- Table -->
-          <a-plane
-            position="0.510 0.85 -2.809"
-            rotation="-90 0 0"
-            height="4.2"
-            width="7.5"
-            material="color:gray;"
-            static-body
-            opacity="0"
+            ></a-circle>
+          </a-circle>
+          <a-circle
+            position="-0.095 0.105 0.0001"
+            radius="0.05"
+            color="#20e5f6"
+            add-button
+            selection
+            class="interactable selection"
           >
-          </a-plane>
-
-          <a-gltf-model
-            src="#Scifi_Table"
-            position="0.5 0.844 -2.8"
-            scale="0.7 0.3 0.7"
-            rotation="0 90 0"
+            <a-text value="OR" opacity="0" visible="false"></a-text>
+            <a-circle
+              position="0 0 0.001"
+              radius="0.055"
+              color="#8c52ff"
+              visible="false"
+            ></a-circle>
+          </a-circle>
+          <a-circle
+            position="0.095 0.105 0.0001"
+            radius="0.05"
+            color="#20e5f6"
+            add-button
+            selection
+            class="interactable selection"
           >
-          </a-gltf-model>
+            <a-text value="AND" opacity="0" visible="false"></a-text>
+            <a-circle
+              position="0 0 0.001"
+              radius="0.055"
+              color="#8c52ff"
+              visible="false"
+            ></a-circle>
+          </a-circle>
+          <a-circle
+            position="0.285 0.105 0.0001"
+            radius="0.05"
+            color="#20e5f6"
+            add-button
+            selection
+            class="interactable selection"
+          >
+            <a-text value="XOR" opacity="0" visible="false"></a-text>
+            <a-circle
+              position="0 0 0.001"
+              radius="0.055"
+              color="#8c52ff"
+              visible="false"
+            ></a-circle>
+          </a-circle>
+          <a-circle
+            position="0.475 0.105 0.0001"
+            radius="0.05"
+            color="#20e5f6"
+            add-button
+            selection
+            class="interactable selection"
+          >
+            <a-text value="Output" opacity="0" visible="false"></a-text>
+            <a-circle
+              position="0 0 0.001"
+              radius="0.055"
+              color="#8c52ff"
+              visible="false"
+            ></a-circle>
+          </a-circle>
+        </a-entity>
+        <a-circle
+          position="0 -0.2 0.001"
+          radius="0.08"
+          grab_connect-toggle
+          class="interactable"
+          visible="false"
+          hoverable
+        ></a-circle>
+        <a-circle
+          id="animation-circle"
+          visible="false"
+          radius="0.003"
+          position="0.001 -0.15 0.0003"
+          color="#8c52ff"
+        >
+        </a-circle>
+        <a-plane
+          id="grabbingtext"
+          opacity="0.99"
+          src="#GrabbingEnabled"
+          position="0 -0.05 0.0001"
+          width="0.423"
+          height="0.046"
+          visible="true"
+        ></a-plane>
+        <a-plane
+          id="connectingtext"
+          opacity="0.99"
+          src="#ConnectingEnabled"
+          position="0 -0.05 0.01"
+          width="0.439"
+          height="0.043"
+          visible="false"
+        ></a-plane>
+        <a-plane
+          id="grabbingradio"
+          opacity="0.99"
+          src="#GrabbingEnabledRadio"
+          position="0 -0.15 0.0001"
+          width="0.139"
+          height="0.133"
+          visible="true"
+        >
+        </a-plane>
+        <a-plane
+          id="connectingradio"
+          opacity="0.99"
+          src="#ConnectingEnabledRadio"
+          position="0.003 -0.15 0.0001"
+          width="0.149"
+          height="0.142"
+          visible="false"
+        >
+        </a-plane>
+      </a-plane>
 
-          <!-- <a-gltf-model
+      <a-gltf-model
+        src="#Scifi_Control"
+        my-model
+        scale="0.7 0.5 0.5 "
+        position="3 0.5 -0.5"
+        rotation="0 360 0"
+      ></a-gltf-model>
+      <!-- Table -->
+      <a-plane
+        position="0.510 0.85 -2.809"
+        rotation="-90 0 0"
+        height="4.2"
+        width="7.5"
+        material="color:gray;"
+        static-body
+        opacity="0"
+      >
+      </a-plane>
+
+      <a-gltf-model
+        src="#Scifi_Table"
+        position="0.5 0.844 -2.8"
+        scale="0.7 0.3 0.7"
+        rotation="0 90 0"
+      >
+      </a-gltf-model>
+
+      <!-- <a-gltf-model
             src="#Scifi_Desk"
             position=" -7.255 1.942 12.246"
             rotation="0 90 0"
             scale="5 1 5"
             static-body
           ></a-gltf-model> -->
+      <!-- Display for instructions -->
+      <a-gltf-model
+        src="#Scifi_Pod"
+        position="3.25 0.080 0.65"
+        scale="0.3 0.25 0.3"
+        rotation="0 0 0"
+      >
+        <a-plane
+          check-display
+          visible="true"
+          src="#CheckDisplay"
+          width="6.268"
+          height="3.456"
+          rotation="0 -90 0"
+          position="0 6.2 0"
+          scale="0.5 0.5 0.5"
+          material="emissive:#88c8d7;emissiveIntensity:0.1"
+          side="double"
+        >
+          <a-text
+            anchor="center"
+            align="center"
+            letterSpacing="2"
+            lineHeight="60"
+            color="#79d0fb"
+            value="Display For instructions"
+          ></a-text
+        ></a-plane>
+        <a-light
+          type="spot"
+          position="0.057 10 0.028"
+          light="angle:15;intensity:0.7;castShadow:false;shadowRadius:8;penumbra:0.2;shadowBias:-0.00001;color:#c1aee5"
+          rotation="-90 0 0"
+        ></a-light>
+      </a-gltf-model>
 
+      <a-gltf-model
+        src="#Scifi_Pod"
+        position="-2.5 0.08 0"
+        scale="0.3 0.25 0.3"
+        rotation="0 90 0"
+      >
+        <a-box
+          opacity="0"
+          wireframe="true"
+          height="0.3"
+          width="0.7"
+          depth="0.9"
+          check-hover
+          rotation="0 180 0"
+          position="0 4.5 0"
+          class="interactable"
+        >
           <a-gltf-model
-            src="#Scifi_Pod"
-            position="-2.5 0.08 0"
-            scale="0.3 0.25 0.3"
-            rotation="0 90 0"
+            src="#Arduino"
+            position="0 -0.15 0"
+            rotation="-90 180 90"
+            scale="0.8 0.8 0.8"
           >
-            <a-box
-              opacity="0"
-              wireframe="true"
-              height="0.3"
-              width="0.7"
-              depth="0.9"
-              check-hover
-              rotation="0 180 0"
-              position="0 4.5 0"
-              class="interactable"
-            >
-              <a-gltf-model
-                src="#Arduino"
-                position="0 -0.15 0"
-                rotation="-90 180 90"
-                scale="0.8 0.8 0.8"
-              >
-              </a-gltf-model>
-            </a-box>
-            <a-plane
-              check-display
-              visible="false"
-              src="#CheckDisplay"
-              width="6.268"
-              height="3.456"
-              rotation="0 -90 0"
-              position="0 6.2 0"
-              scale="0.5 0.5 0.5"
-              material="emissive:#88c8d7;emissiveIntensity:0.1"
-              side="double"
-            >
-              <a-text
-                anchor="center"
-                align="center"
-                letterSpacing="2"
-                lineHeight="60"
-                color="#79d0fb"
-                value="Arduino is an open-source platform featuring easy-to-use microcontroller boards and a programming environment. Known for simplicity, its great for beginners and hobbyists, enabling projects like controlling LEDs, motors, and sensors."
-                width="6" 
-              ></a-text>
-            ></a-plane>
-            <a-light
-              type="spot"
-              position="0.057 10 0.028"
-              light="angle:15;intensity:0.7;castShadow:false;shadowRadius:8;penumbra:0.2;shadowBias:-0.00001;color:#88c8d7"
-              rotation="-90 0 0"
-            ></a-light>
           </a-gltf-model>
+        </a-box>
+        <a-plane
+          check-display
+          visible="false"
+          src="#CheckDisplay"
+          width="6.268"
+          height="3.456"
+          rotation="0 -90 0"
+          position="0 6.2 0"
+          scale="0.5 0.5 0.5"
+          material="emissive:#88c8d7;emissiveIntensity:0.1"
+          side="double"
+        >
+          <a-text
+            anchor="center"
+            align="center"
+            letterSpacing="2"
+            lineHeight="60"
+            color="#79d0fb"
+            value="Arduino is an open-source platform featuring easy-to-use microcontroller boards and a programming environment. Known for simplicity, its great for beginners and hobbyists, enabling projects like controlling LEDs, motors, and sensors."
+            width="6"
+          ></a-text>
+          ></a-plane
+        >
+        <a-light
+          type="spot"
+          position="0.057 10 0.028"
+          light="angle:15;intensity:0.7;castShadow:false;shadowRadius:8;penumbra:0.2;shadowBias:-0.00001;color:#88c8d7"
+          rotation="-90 0 0"
+        ></a-light>
+      </a-gltf-model>
+      <a-gltf-model
+        src="#Scifi_Pod"
+        position="-3.25 0.080 0.65"
+        scale="0.3 0.25 0.3"
+        rotation="0 140 0"
+      >
+        <a-box
+          opacity="0"
+          wireframe="true"
+          height="0.15"
+          width="0.5"
+          depth="0.8"
+          check-hover
+          rotation="0 180 0"
+          position="0 4.5 0"
+          class="interactable"
+        >
           <a-gltf-model
-            src="#Scifi_Pod"
-            position="-3.25 0.080 0.65"
-            scale="0.3 0.25 0.3"
-            rotation="0 140 0"
+            src="#ESP32"
+            position="0 0 0"
+            rotation="0 0 0"
+            scale="0.4 0.4 0.4"
           >
-            <a-box
-              opacity="0"
-              wireframe="true"
-              height="0.15"
-              width="0.5"
-              depth="0.8"
-              check-hover
-              rotation="0 180 0"
-              position="0 4.5 0"
-              class="interactable"
-            >
-              <a-gltf-model
-                src="#ESP32"
-                position="0 0 0"
-                rotation="0 0 0"
-                scale="0.4 0.4 0.4"
-              >
-              </a-gltf-model>
-            </a-box>
-            <a-plane
-              check-display
-              visible="false"
-              src="#CheckDisplay"
-              width="6.268"
-              height="3.456"
-              rotation="0 -90 0"
-              position="0 6.2 0"
-              scale="0.5 0.5 0.5"
-              material="emissive:#88c8d7;emissiveIntensity:0.1"
-              side="double"
-            >
-              <a-text
-                anchor="center"
-                align="center"
-                letterSpacing="2"
-                lineHeight="60"
-                color="#79d0fb"
-                value="ESP32 is a microcontroller board with built-in Wi-Fi and Bluetooth capabilities, making it perfect for IoT projects, 
+          </a-gltf-model>
+        </a-box>
+        <a-plane
+          check-display
+          visible="false"
+          src="#CheckDisplay"
+          width="6.268"
+          height="3.456"
+          rotation="0 -90 0"
+          position="0 6.2 0"
+          scale="0.5 0.5 0.5"
+          material="emissive:#88c8d7;emissiveIntensity:0.1"
+          side="double"
+        >
+          <a-text
+            anchor="center"
+            align="center"
+            letterSpacing="2"
+            lineHeight="60"
+            color="#79d0fb"
+            value="ESP32 is a microcontroller board with built-in Wi-Fi and Bluetooth capabilities, making it perfect for IoT projects, 
                 robotics, and wearable tech. It's high-performance,
                 low-power, and programmable in C/C++, MicroPython, and Arduino IDE."
-              ></a-text
-            ></a-plane>
-            <a-light
-              type="spot"
-              position="0.057 10 0.028"
-              light="angle:15;intensity:0.7;castShadow:false;shadowRadius:8;penumbra:0.2;shadowBias:-0.00001;color:#c1aee5"
-              rotation="-90 0 0"
-            ></a-light>
-          </a-gltf-model>
+          ></a-text
+        ></a-plane>
+        <a-light
+          type="spot"
+          position="0.057 10 0.028"
+          light="angle:15;intensity:0.7;castShadow:false;shadowRadius:8;penumbra:0.2;shadowBias:-0.00001;color:#c1aee5"
+          rotation="-90 0 0"
+        ></a-light>
+      </a-gltf-model>
+      <a-gltf-model
+        src="#Scifi_Pod"
+        position="-1.5 0.080 -.2"
+        scale="0.3 0.25 0.3"
+        rotation="0 90 0"
+      >
+        <a-box
+          opacity="0"
+          wireframe="true"
+          height="0.25"
+          width="0.7"
+          depth="0.8"
+          check-hover
+          rotation="0 180 0"
+          position="0 4.5 0"
+          class="interactable"
+        >
           <a-gltf-model
-            src="#Scifi_Pod"
-            position="-1.5 0.080 -.2"
-            scale="0.3 0.25 0.3"
-            rotation="0 90 0"
+            src="#RPI"
+            position="0 -0.15 -0.391"
+            rotation="-50 3 58"
+            scale="0.01 0.01 0.01"
           >
-            <a-box
-              opacity="0"
-              wireframe="true"
-              height="0.25"
-              width="0.7"
-              depth="0.8"
-              check-hover
-              rotation="0 180 0"
-              position="0 4.5 0"
-              class="interactable"
-            >
-              <a-gltf-model
-                src="#RPI"
-                position="0 -0.15 -0.391"
-                rotation="-50 3 58"
-                scale="0.01 0.01 0.01"
-              >
-              </a-gltf-model>
-            </a-box>
-            <a-plane
-              check-display
-              visible="false"
-              src="#CheckDisplay"
-              width="6.268"
-              height="3.456"
-              rotation="0 -90 0"
-              position="0 6.2 0"
-              scale="0.5 0.5 0.5"
-              material="emissive:#88c8d7;emissiveIntensity:0.1"
-              side="double"
-            >
-              <a-text
-                anchor="center"
-                align="center"
-                letterSpacing="2"
-                lineHeight="60"
-                color="#79d0fb"
-                value="Raspberry Pi is a compact, affordable single-board computer running Linux OS and supporting various programming languages. 
-                It's great for learning coding, robotics, media centers, and retro gaming, with models like Raspberry Pi 4, 3, 2, and Zero."
-              ></a-text
-            ></a-plane>
-            <a-light
-              type="spot"
-              position="0.057 10 0.028"
-              light="angle:15;intensity:0.7;castShadow:false;shadowRadius:8;penumbra:0.2;shadowBias:-0.00001;color:#f48686"
-              rotation="-90 0 0"
-            ></a-light>
           </a-gltf-model>
+        </a-box>
+        <a-plane
+          check-display
+          visible="false"
+          src="#CheckDisplay"
+          width="6.268"
+          height="3.456"
+          rotation="0 -90 0"
+          position="0 6.2 0"
+          scale="0.5 0.5 0.5"
+          material="emissive:#88c8d7;emissiveIntensity:0.1"
+          side="double"
+        >
+          <a-text
+            anchor="center"
+            align="center"
+            letterSpacing="2"
+            lineHeight="60"
+            color="#79d0fb"
+            value="Raspberry Pi is a compact, affordable single-board computer running Linux OS and supporting various programming languages. 
+                It's great for learning coding, robotics, media centers, and retro gaming, with models like Raspberry Pi 4, 3, 2, and Zero."
+          ></a-text
+        ></a-plane>
+        <a-light
+          type="spot"
+          position="0.057 10 0.028"
+          light="angle:15;intensity:0.7;castShadow:false;shadowRadius:8;penumbra:0.2;shadowBias:-0.00001;color:#f48686"
+          rotation="-90 0 0"
+        ></a-light>
+      </a-gltf-model>
 
-          <!--Logic Gate Object-->
-          <a-box
-            xor-logic
-            logic-gate
-            class="interactable gates"
-            dynamic-body
-            grabbable
-            hoverable
-            material="color: white; wireframe: true;opacity:0;visible:false"
-            depth="0.05"
-            height="0.3"
-            width="0.6"
-            rotation="-90 0 0"
-            position="0 1.2 -1"
-          >
-            <a-gltf-model
-              position="-0.3 -0.15 0  "
-              src="#XOR_GATE_PLATE"
-              scale="0.02 0.02 0.04"
-              rotation="0 0 0"
-              material="color:red"
-            ></a-gltf-model>
-            <a-text
-              value="XOR"
-              color="yellow"
-              scale="0.5 0.5 0.5"
-              rotation="0 0 0"
-              position="-0.16 0 0"
-            ></a-text>
-            <a-box
-              droppable
-              logic-node
-              recieve-node
-              opacity="0"
-              class="nodes recieve-node"
-              color="white"
-              scale="0.07 0.07 0.07"
-              wireframe="true"
-              position="-0.3 0.08 -0.02"
-            >
-              <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
-              <a-sphere color="red" scale="0.45 0.45 0.45"></a-sphere>
-            </a-box>
-            <a-box
-              droppable
-              logic-node
-              recieve-node
-              class="nodes recieve-node"
-              opacity="0"
-              color="white"
-              scale="0.07 0.07 0.07"
-              wireframe="true"
-              position="-0.3 -0.08 -0.02"
-            >
-              <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
-              <a-sphere color="red" scale="0.45 0.45 0.45"></a-sphere>
-            </a-box>
-            <a-box
-              hoverable
-              draggable
-              droppable
-              logic-node
-              transmit-node
-              opacity="0"
-              class="nodes transmit-node"
-              color="white"
-              scale="0.07 0.07 0.07"
-              wireframe="true"
-              position="0.27 -0 -0.02"
-            >
-              <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
-              <a-sphere color="blue" scale="0.45 0.45 0.45"></a-sphere>
-            </a-box>
-          </a-box>
+      <!--Logic Gate Object-->
+      <a-box
+        xor-logic
+        logic-gate
+        class="interactable gates"
+        dynamic-body
+        grabbable
+        hoverable
+        material="color: white; wireframe: true;opacity:0;visible:false"
+        depth="0.05"
+        height="0.3"
+        width="0.6"
+        rotation="-90 0 0"
+        position="0 1.2 -1"
+      >
+        <a-gltf-model
+          position="-0.3 -0.15 0  "
+          src="#XOR_GATE_PLATE"
+          scale="0.02 0.02 0.04"
+          rotation="0 0 0"
+          material="color:red"
+        ></a-gltf-model>
+        <a-text
+          value="XOR"
+          color="yellow"
+          scale="0.5 0.5 0.5"
+          rotation="0 0 0"
+          position="-0.16 0 0"
+        ></a-text>
+        <a-box
+          droppable
+          logic-node
+          recieve-node
+          opacity="0"
+          class="nodes recieve-node"
+          color="white"
+          scale="0.07 0.07 0.07"
+          wireframe="true"
+          position="-0.3 0.08 -0.02"
+        >
+          <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
+          <a-sphere color="red" scale="0.45 0.45 0.45"></a-sphere>
+        </a-box>
+        <a-box
+          droppable
+          logic-node
+          recieve-node
+          class="nodes recieve-node"
+          opacity="0"
+          color="white"
+          scale="0.07 0.07 0.07"
+          wireframe="true"
+          position="-0.3 -0.08 -0.02"
+        >
+          <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
+          <a-sphere color="red" scale="0.45 0.45 0.45"></a-sphere>
+        </a-box>
+        <a-box
+          hoverable
+          draggable
+          droppable
+          logic-node
+          transmit-node
+          opacity="0"
+          class="nodes transmit-node"
+          color="white"
+          scale="0.07 0.07 0.07"
+          wireframe="true"
+          position="0.27 -0 -0.02"
+        >
+          <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
+          <a-sphere color="blue" scale="0.45 0.45 0.45"></a-sphere>
+        </a-box>
+      </a-box>
 
-          <a-box
-            input-logic
-            logic-gate
-            class="interactable gates"
-            dynamic-body
-            grabbable
-            hoverable
-            material="color: white; wireframe: true; opacity: 0;visible:false"
-            depth="0.1 "
-            height="0.15"
-            width="0.28"
-            rotation="-90 0 0"
-            position="-1 1.2 -1"
-          >
-            <a-gltf-model
-              class="interactable"
-              hoverable
-              input-button
-              src="#Button"
-              position="-0.086 0.041 -0.05"
-              rotation="180 0 0"
-              scale="0.008 0.008 0.005"
-            >
-              <a-text
-                value="Input"
-                color="yellow"
-                rotation="180 0 0"
-                position="-0.368 4.354 -7.602"
-                scale="20 20 20"
-              ></a-text
-            ></a-gltf-model>
-            <a-gltf-model
-              src="#Button_case"
-              position="-0.11 0.06 -0.05"
-              rotation="180 0 0"
-              scale="0.01 0.01 0.01"
-            >
-            </a-gltf-model>
+      <a-box
+        input-logic
+        logic-gate
+        class="interactable gates"
+        dynamic-body
+        grabbable
+        hoverable
+        material="color: white; wireframe: true; opacity: 0;visible:false"
+        depth="0.1 "
+        height="0.15"
+        width="0.28"
+        rotation="-90 0 0"
+        position="-1 1.2 -1"
+      >
+        <a-gltf-model
+          class="interactable"
+          hoverable
+          input-button
+          src="#Button"
+          position="-0.086 0.041 -0.05"
+          rotation="180 0 0"
+          scale="0.008 0.008 0.005"
+        >
+          <a-text
+            value="Input"
+            color="yellow"
+            rotation="180 0 0"
+            position="-0.368 4.354 -7.602"
+            scale="20 20 20"
+          ></a-text
+        ></a-gltf-model>
+        <a-gltf-model
+          src="#Button_case"
+          position="-0.11 0.06 -0.05"
+          rotation="180 0 0"
+          scale="0.01 0.01 0.01"
+        >
+        </a-gltf-model>
 
-            <a-box
-              position="0.05 0 -0.04"
-              height="0.025"
-              width="0.1"
-              depth="0.02"
-              material="color: black"
-            >
-            </a-box>
+        <a-box
+          position="0.05 0 -0.04"
+          height="0.025"
+          width="0.1"
+          depth="0.02"
+          material="color: black"
+        >
+        </a-box>
 
-            <a-box
-              hoverable
-              draggable
-              droppable
-              logic-node
-              transmit-node="value:true"
-              opacity="0"
-              class="nodes transmit-node"
-              color="white"
-              scale="0.07 0.07 0.07"
-              wireframe="true"
-              position="0.1 0 -0.02"
-            >
-              <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
-              <a-sphere color="blue" scale="0.45 0.45 0.45"></a-sphere>
-            </a-box>
-          </a-box>
+        <a-box
+          hoverable
+          draggable
+          droppable
+          logic-node
+          transmit-node="value:true"
+          opacity="0"
+          class="nodes transmit-node"
+          color="white"
+          scale="0.07 0.07 0.07"
+          wireframe="true"
+          position="0.1 0 -0.02"
+        >
+          <a-text position="-0.5 0 1" rotation="90 0 0" scale="5 5 5 "></a-text>
+          <a-sphere color="blue" scale="0.45 0.45 0.45"></a-sphere>
+        </a-box>
+      </a-box>
 
-          <!-- Floor -->
-          <a-plane
-            position="0 0 -4"
-            rotation="-90 0 0"
-            width="12"
-            height="70"
-            static-body
-            opacity="0"
-          ></a-plane>
-        </a-scene>
-        <script>
-          document.querySelector("a-scene").addEventListener("loaded", function () {
-            console.log("Scene loaded");
-            document
-              .querySelector("a-assets")
-              .addEventListener("loaded", function () {
-                console.log("Assets loaded");
-              });
-
-            document
-              .querySelector("a-assets")
-              .addEventListener("timeout", function () {
-                console.log("Assets timed out");
-              });
+      <!-- Floor -->
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="12"
+        height="70"
+        static-body
+        opacity="0"
+      ></a-plane>
+    </a-scene>
+    <script>
+      document.querySelector("a-scene").addEventListener("loaded", function () {
+        console.log("Scene loaded");
+        document
+          .querySelector("a-assets")
+          .addEventListener("loaded", function () {
+            console.log("Assets loaded");
           });
-          document.addEventListener('DOMContentLoaded', () => {
-        const sceneEl = document.querySelector('a-scene');
-        const cameraEl = document.querySelector('#camera');
 
-        sceneEl.addEventListener('enter-vr', () => {
+        document
+          .querySelector("a-assets")
+          .addEventListener("timeout", function () {
+            console.log("Assets timed out");
+          });
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        const sceneEl = document.querySelector("a-scene");
+        const cameraEl = document.querySelector("#camera");
+
+        sceneEl.addEventListener("enter-vr", () => {
           // Ensure WASD and look controls are enabled
-          cameraEl.setAttribute('wasd-controls', 'enabled', true);
-          cameraEl.setAttribute('look-controls', 'enabled', true);
+          cameraEl.setAttribute("wasd-controls", "enabled", true);
+          cameraEl.setAttribute("look-controls", "enabled", true);
 
           // Request full-screen when entering VR
-          if (sceneEl.is('vr-mode')) {
+          if (sceneEl.is("vr-mode")) {
             if (sceneEl.enterVR) {
               sceneEl.enterVR();
             }
           }
         });
 
-        sceneEl.addEventListener('exit-vr', () => {
+        sceneEl.addEventListener("exit-vr", () => {
           // Ensure controls remain enabled after exiting VR
-          cameraEl.setAttribute('wasd-controls', 'enabled', true);
-          cameraEl.setAttribute('look-controls', 'enabled', true);
+          cameraEl.setAttribute("wasd-controls", "enabled", true);
+          cameraEl.setAttribute("look-controls", "enabled", true);
         });
 
         // Set WebXR for VR
@@ -728,6 +798,6 @@
         // Set the size of the renderer for full-screen experience
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
-        </script>
-      </body>
-    </html>
+    </script>
+  </body>
+</html>
