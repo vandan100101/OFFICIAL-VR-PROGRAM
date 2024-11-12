@@ -1,0 +1,51 @@
+sudo apt-get install python3-smbus
+pip3 install mpu6050-raspberrypi
+
+
+SERVERSIDE
+
+import asyncio
+import websockets
+from mpu6050 import mpu6050
+
+sensor = mpu6050(0x68)  # Adjust the address if necessary
+
+async def send_data(websocket, path):
+    while True:
+        gyro_data = sensor.get_gyro_data()
+
+        # Send data as JSON
+        await websocket.send(json.dumps({'gyro': gyro_data}))
+        await asyncio.sleep(0.01)
+
+asyncio.run(asyncio.start_server(send_data, 'localhost', 8765))
+
+
+
+
+
+
+
+
+
+HTMLPART
+
+<a-scene>
+  <a-camera id="camera" position="0 1.5 1"></a-camera>
+
+  <script>
+    const socket = new WebSocket('ws://localhost:8765');
+
+    socket.onmessage = function(event) {
+      const sensorData = JSON.parse(event.data);
+      const gyro = sensorData.gyro;
+
+      const camera = document.querySelector('#camera');
+      camera.setAttribute('rotation', {
+        x: gyro.x,
+        y: gyro.y,
+        z: gyro.z
+      });
+    };
+  </script>
+</a-scene>
