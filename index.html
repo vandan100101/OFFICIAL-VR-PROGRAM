@@ -57,21 +57,29 @@
                       fixedTimeStep: 1/60;
                       iterations: 10;"
     >
-      <!-- Camera -->
-      <a-camera position="0 1.5 1" wasd-controls="acceleration: 20">
+      <a-entity
+        id="camera"
+        camera
+        position="0 1.6 0"
+        wasd-controls
+        look-controls="pointerLockEnabled: true"
+      >
+        <!-- Cursor in the center of the screen -->
         <!-- Cursor -->
         <a-cursor
           raycaster="far: 5; interval: 100; objects: .interactable"
           position="0 0 -0.2"
           scale="0.15 0.15 0.15"
           super-hands="colliderEvent: raycaster-intersection;
-              colliderEventProperty: els;
-              colliderEndEvent:raycaster-intersection-cleared;
-              colliderEndEventProperty: clearedEls;"
+                colliderEventProperty: els;
+                colliderEndEvent:raycaster-intersection-cleared;
+                colliderEndEventProperty: clearedEls;"
           static-body="shape: sphere; sphereRadius: 0.001"
           color="white"
         ></a-cursor>
-      </a-camera>
+      </a-entity>
+
+      <!-- Camera -->
 
       <!-- assets -->
       <a-assets>
@@ -751,6 +759,7 @@
         opacity="0"
       ></a-plane>
     </a-scene>
+
     <script>
       document.querySelector("a-scene").addEventListener("loaded", function () {
         console.log("Scene loaded");
@@ -773,7 +782,7 @@
         sceneEl.addEventListener("enter-vr", () => {
           // Ensure WASD and look controls are enabled
           cameraEl.setAttribute("wasd-controls", "enabled", true);
-          cameraEl.setAttribute("look-controls", "enabled", false);
+          cameraEl.setAttribute("look-controls", "enabled", true);
 
           // Request full-screen when entering VR
           if (sceneEl.is("vr-mode")) {
@@ -798,34 +807,6 @@
         // Set the size of the renderer for full-screen experience
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
-
-      const socket = new WebSocket('ws://<raspberry_pi_ip>:192.168.0.109'); // Replace with your Raspberry Pi's IP address
-
-  socket.onmessage = function(event) {
-    const sensorData = JSON.parse(event.data);
-    const accel = sensorData.accel;
-    const gyro = sensorData.gyro;
-
-    // Update the camera rotation based on gyro data
-    const camera = document.querySelector('#camera');
-    camera.setAttribute('rotation', {
-      x: gyro.x,
-      y: gyro.y,
-      z: gyro.z
-    });
-  };
-
-  socket.onopen = function() {
-    console.log('Connected to WebSocket server');
-  };
-
-  socket.onerror = function(error) {
-    console.log('WebSocket Error: ' + error);
-  };
-
-  socket.onclose = function() {
-    console.log('WebSocket connection closed');
-  };
     </script>
   </body>
 </html>
