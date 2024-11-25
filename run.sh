@@ -1,19 +1,15 @@
 #!/bin/bash
 
-# Function to display a loading screen with a progress bar
+# Function to display a cool loading screen with progress and messages
 show_loading_screen() {
+    local message="$1"
+    
     (
-        echo "10" ; sleep 1
-        echo "20" ; sleep 1
-        echo "30" ; sleep 1
-        echo "40" ; sleep 1
-        echo "50" ; sleep 1
-        echo "60" ; sleep 1
-        echo "70" ; sleep 1
-        echo "80" ; sleep 1
-        echo "90" ; sleep 1
-        echo "100" ; sleep 1
-    ) | yad --progress --title "Loading..." --text="Starting Arduino and Chromium. Please wait..." \
+        for i in {1..100}; do
+            echo "$i"
+            sleep 0.1
+        done
+    ) | yad --progress --title "Loading..." --text="$message" \
         --percentage=0 --auto-close --borders=10 --center --no-buttons --width=300 --height=100
 }
 
@@ -35,6 +31,9 @@ open_arduino() {
     local arduino_file="$1"
     
     if command -v arduino &> /dev/null; then
+        # Show loading screen for Arduino IDE and port detection
+        show_loading_screen "Opening Arduino IDE and detecting serial port..."
+        
         # Detect the serial port
         detect_serial_port
         
@@ -46,8 +45,11 @@ open_arduino() {
         # Modify preferences.txt to set the correct serial port (automate selection)
         sed -i "s|^serial.port=.*|serial.port=\"$SERIAL_PORT\"|" ~/.arduino15/preferences.txt
         
-        # Open the Serial Monitor using xdotool
+        # Open the Serial Monitor using xdotool (simulate Ctrl+Shift+M)
         xdotool search --name "Arduino" windowactivate --sync key ctrl+shift+m
+        
+        # Wait for the Arduino IDE to be closed by the user (keeps the window open)
+        wait $ARDUINO_PID
     else
         echo "Arduino IDE is not installed. Please install it first."
         exit 1
@@ -59,6 +61,9 @@ open_chromium() {
     local url="$1"
     
     if command -v chromium-browser &> /dev/null; then
+        # Show loading screen for opening Chromium
+        show_loading_screen "Opening Chromium and navigating to $url..."
+        
         # Adding a small delay to ensure Arduino IDE has initialized
         sleep 2
         chromium-browser --start-fullscreen "$url" &
@@ -74,9 +79,6 @@ open_chromium() {
 main() {
     local arduino_file="/home/vr/Desktop/MouseWithSensor/MouseWithSensor.ino"  # Correct Arduino file path
     local url="https://logicgatesvr.netlify.app"  # URL to open in Chromium
-
-    # Show the loading screen
-    show_loading_screen
 
     # Launch Arduino IDE and wait for it to open
     open_arduino "$arduino_file"
