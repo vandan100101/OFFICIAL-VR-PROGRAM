@@ -27,6 +27,10 @@ open_arduino() {
         wait $ARDUINO_PID
         sleep 5 # Allow enough time for Arduino IDE to open fully
 
+        # Ensure Serial Port is selected before proceeding (manual step required by user)
+        echo "Please manually select the correct port in Arduino IDE and then access the Serial Monitor."
+        sleep 5
+
         # Open the Serial Monitor (if the window is open)
         xdotool search --name "Arduino" windowactivate --sync key ctrl+shift+m
     else
@@ -40,6 +44,8 @@ open_chromium() {
     local url="$1"
     
     if command -v chromium-browser &> /dev/null; then
+        # Adding a small delay to ensure that Arduino IDE has initialized
+        sleep 2
         chromium-browser --start-fullscreen "$url" &
         CHROMIUM_PID=$!
         wait $CHROMIUM_PID
