@@ -25,7 +25,7 @@ open_arduino() {
         arduino "$arduino_file" &
         ARDUINO_PID=$!
         wait $ARDUINO_PID
-        sleep 2 # Allow Arduino to fully open
+        sleep 5 # Allow enough time for Arduino IDE to open fully
 
         # Open the Serial Monitor (if the window is open)
         xdotool search --name "Arduino" windowactivate --sync key ctrl+shift+m
@@ -63,6 +63,9 @@ main() {
     # Launch Chromium in fullscreen mode and wait for it to open
     open_chromium "$url"
 }
+
+# Ensure DISPLAY is set to the correct screen
+export DISPLAY=:0
 
 # Run the main function
 main
